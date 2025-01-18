@@ -11,8 +11,9 @@ G = [[" " for _1 in range(N+len(str(mx))+1)] for _ in range((mx-mn)//10+1)]
 
 def add_scale(graf, mi_n, ma_x):
 
-    scale = [mx-i for i in range(mi_n, ma_x+10, 10)]
-    # print(scale)
+    scale = [i for i in range(mi_n, ma_x+10, 10)]
+    #  print(scale)
+    #  print(mi_n, ma_x)
 
     dig_len = len(str(ma_x))
 
@@ -32,7 +33,40 @@ def add_scale(graf, mi_n, ma_x):
             graf[i][dig_len-4] = str(scale[i])[-4]
 
 
-add_scale(G, mn, mx)
+def check_line(last_day, today, index, mi_n):
 
-for row in G:
-    print(*row, sep="")
+    last_day_index = last_day//10 - mi_n//10
+    today_index = today//10 - mi_n//10
+
+    if today_index == index:
+        return True
+
+    if last_day_index > index > today_index:
+        return True
+
+    if last_day_index < index < today_index:
+        return True
+
+    return False
+
+
+def doo_graff(graf, period, data, mi_n, ma_x):
+
+    last_day = data[0]
+
+    for day in range(period):
+        for index in range(len(graf)):
+
+            if check_line(last_day, data[day], index, mi_n):
+                graf[index][day+len(str(ma_x))+1] = "*"
+            else:
+                graf[index][day+len(str(ma_x))+1] = "."
+
+        last_day = data[day]
+
+
+add_scale(G, mn, mx)
+doo_graff(G, N, P, mn, mx)
+
+for row in range(len(G)):
+    print(*G[len(G)-row-1], sep="")
