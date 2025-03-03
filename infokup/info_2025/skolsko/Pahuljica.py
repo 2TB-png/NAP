@@ -29,7 +29,7 @@ if not abs(x_min - x_max) == abs(y_min - y_max):
     x_min, x_max = min(x_l), max(x_l)
     y_min, y_max = min(y_l), max(y_l)
 
-# calculate origens
+# calculate origins
 origen = [(x_min+x_max)//2, (y_min+y_max)//2]
 
 # restore points
